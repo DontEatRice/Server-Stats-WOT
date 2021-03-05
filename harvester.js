@@ -16,14 +16,14 @@ const hourlyHarvest = () => {
                 stats.forEach((values) => {
                     arr.push({name: values.server, players: values.players_online});
                 })
-            })
-        const dataToPush = new server.schema({servers: arr})
-        const errors = dataToPush.validateSync();
-        if (errors) console.log(errors);
-        dataToPush.save(err => {
-            if (err){
-                console.log(err)
+                const dataToPush = new server.schema({servers: arr})
+                const errors = dataToPush.validateSync();
+                if (errors) console.log(errors);
+                dataToPush.save(err => {
+                    if (err){
+                        console.log(err)
             }   
+            })
         });
     })
 }
