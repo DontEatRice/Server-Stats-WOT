@@ -5,7 +5,7 @@ const Stats = require('../models/stats').EU
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  const findStats = Stats.find().limit(25).sort({date: 1}).select("servers date")//{date: {"$lte": drugi.toISOString()}}
+  const findStats = Stats.find().sort({date: -1}).limit(25).select("servers date")//{date: {"$lte": drugi.toISOString()}}
   findStats.exec((err, data) => {
     if (err)
       res.render('error', {message: err});

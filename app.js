@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv')
 // const Stats = require('./models/stats').EU
 const cors = require('cors')
-const harvester = require('./harvester');
 // const Server = require('./models/server')
 dotenv.config();
 
@@ -30,36 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/error', errorRouter)
 
-// const fastDane = () => {
-//     let data = new Date();
-//     data.setMinutes(0);
-//     for(let i = 0; i<25; i++) {
-//         const EU1 = Math.round(Math.random()*5000)
-//         const EU2 = Math.round(Math.random()*5000)
-//         const boo = [{name: 'EU1', players: EU1}, {name: 'EU2', players: EU2}]
-//         // const table = [new Server(boo[0]), new Server(boo[1])]
-//         // const e1 = table[0].validateSync();
-//         // if (e1) console.log(e1)
-//         // const e2 = table[1].validateSync();
-//         // if (e2) console.log(e2)
-
-//         const foo = {servers: boo, date: data.toISOString()}
-//         data.setHours(data.getHours()-1)
-
-//         const newStats = new Stats(foo)
-//         const errors = newStats.validateSync();
-//         if (errors) console.log(errors);
-//         newStats.save(err => {
-//             if (err){
-//                 console.log(err)
-//             } else
-//                 console.log('sukces')
-//         });
-//     }
-// }
-
-setInterval(() => {
-    harvester();
-}, 60 * 1000 * 60)
 
 module.exports = app;
+

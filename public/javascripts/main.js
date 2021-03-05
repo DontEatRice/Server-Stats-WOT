@@ -1,4 +1,4 @@
-
+stats.reverse();
 const colors = ["rgba(255,99,132,1)", "rgba(103, 181, 190, 1)"]
 
 let labels = []
