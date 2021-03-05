@@ -13,8 +13,8 @@ stats[0].servers.forEach(server => {
 
 stats.forEach((value, index) => {
   let date = new Date(value.date);
-  if (date.getHours() === 0)
-    labels.push(`${date.getDate()}.${date.getMonth() < 10 ? '0'+date.getMonth(): date.getMonth()} ${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`);
+  if (date.getHours() === 23)
+    labels.push(`${date.getDate()}.${date.getMonth() < 9 ? '0'+(date.getMonth()+1): date.getMonth()+1} ${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`);
   else
     labels.push(`${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`)
   value.servers.forEach((server, index) => {

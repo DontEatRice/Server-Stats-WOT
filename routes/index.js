@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Stats = require('../models/stats')
+const Stats = require('../models/stats').EU
 
 
 /* GET home page. */

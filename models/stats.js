@@ -9,4 +9,9 @@ const statsSchema = new Schema({
     date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('EU', statsSchema);
+module.exports = {
+    EU: mongoose.model('EU', statsSchema), 
+    RU: mongoose.model('RU', statsSchema), 
+    NA: mongoose.model('NA', statsSchema),
+    ASIA: mongoose.model('ASIA', statsSchema)
+}
