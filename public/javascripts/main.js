@@ -4,6 +4,7 @@ const colors = ["rgba(255,99,132,1)", "rgba(103, 181, 190, 1)"]
 let labels = []
 let players = []
 let names = []
+let players_sum = []
 for(let i = 0; i<stats[0].servers.length; i++) {
   players.push([])
 }
@@ -17,9 +18,12 @@ stats.forEach((value, index) => {
     labels.push(`${date.getDate()}.${date.getMonth() < 9 ? '0'+(date.getMonth()+1): date.getMonth()+1} ${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`);
   else
     labels.push(`${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`)
+  let sum = 0;
   value.servers.forEach((server, index) => {
+    sum += server.players
     players[index].push(server.players)
   })
+  players_sum.push(sum)
 });
 
 const datasetsGenerator = (name, data, color) => {
@@ -34,6 +38,7 @@ const datasetsGenerator = (name, data, color) => {
     data: data,
     pointRadius: 3,
     pointHoverRadius: 6,
+    hidden: name === 'sum' ? false : true
   }
 }
 
@@ -41,6 +46,7 @@ let datasets = []
 names.forEach((name, index)=> {
   datasets.push(datasetsGenerator(name, players[index], colors[index]))
 })
+datasets.push(datasetsGenerator('sum', players_sum, "rgba(236, 71, 233, 1)"))
 
 
 const data = {
