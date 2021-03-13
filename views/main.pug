@@ -1,5 +1,12 @@
 extends layout 
 
+mixin option(name)
+    if name == loc 
+        option(value=name selected)=name
+    else
+        option(value=name)=name
+
+
 block links 
     link(rel="stylesheet" href="./stylesheets/style.css")
     script(src="./javascripts/Chart.bundle.min.js")
@@ -13,8 +20,17 @@ block content
             span.links 
                 a(href="") About me
                 a(href="") Github
-        div(class="chart-container")
-            canvas#chart
+        div.block 
+            div(class="chart-container")
+                canvas#chart
+            div.options
+                span Choose different server 
+                span 
+                    select
+                        +option('EU')
+                        +option('RU')
+                        +option('NA')
+                        +option('ASIA')
         footer 
             span.links 
                 a(href="") About me 
