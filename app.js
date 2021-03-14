@@ -27,7 +27,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
-app.use('/error', errorRouter)
+app.use('/error', errorRouter);
+
+app.use((req, res) => {
+    res.status(404);
+    res.render('error', {message: '404 page not found'})
+})
 
 
 module.exports = app;

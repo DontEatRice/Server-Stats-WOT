@@ -1,4 +1,12 @@
 extends layout 
 
+block links
+    link(rel="stylesheet" href="./stylesheets/error.css")
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet")
 block content
-    p=error
+    div.bg
+        div.content
+            p.msg Error: #{message}
+            div.back
+                a(href="/") back to main page 
