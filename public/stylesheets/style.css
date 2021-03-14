@@ -9,14 +9,6 @@ a {
   color: #00B7FF;
 }
 
-#container {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  background-image: url('../images/pattern/double-bubble-dark.png');
-  background-repeat: repeat;
-}
-
 div.block {
   height: 80vh;
   width: 80vw;
@@ -26,23 +18,14 @@ div.block {
   color: white;
   display: block;
   width: auto;
-  font-size: 1.1em;
+  font-size: 1.2em;
+  font-weight: 500;
 }
 
 select {
   display: inline;
   cursor: pointer;
   padding: 5px;
-}
-
-
-
-.chart-container {
-  position: relative;
-  /* margin: auto; */
-  height: 100%;
-  width: 100%;
-  cursor: pointer;
 }
 
 .mobile_warning {
@@ -53,6 +36,7 @@ nav {
     width: 100%;
     background-color: black;
     position: relative;
+    color: white;
 }
 
 span.links {

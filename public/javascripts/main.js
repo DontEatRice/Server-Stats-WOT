@@ -1,5 +1,45 @@
-stats.reverse();
 const colors = ["rgba(255,99,132,1)", "rgba(103, 181, 190, 1)"]
+
+const options = () => {
+  return {
+    maintainAspectRatio: false,
+    stacked: false,
+    responsive: true,
+    hover: {
+        mode: 'index',
+        intersect: false
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
+    },
+    scales: {
+      yAxes: [{
+        stacked: false,
+        gridLines: {
+          display: true,
+          color: "rgba(255,255,255,0.7)",
+          drawBorder: true,
+          drawOnChartArea: false,
+        },
+        ticks: {
+          fontColor: "#FFF"
+        }
+      }],
+      xAxes: [{
+        gridLines: {
+          display: true,
+          drawBorder: true,
+          color: "rgba(255,255,255,0.7)",
+          drawOnChartArea: false
+        },
+        ticks: {
+          fontColor: "#FFF"
+        }
+      }]
+    }
+  };
+}
 
 const setExampleData = (stats) => {
   let structure = []
@@ -40,7 +80,7 @@ const randomColor = () => {
   return `rgba(${r}, ${g}, ${b}, 1)`
 }
 
-const datasetsGenerator = (name, data, color) => {
+const datasetsGenerator = (name, data, color, hidden) => {
   return {
     label: name,
     borderColor: color,
@@ -52,94 +92,54 @@ const datasetsGenerator = (name, data, color) => {
     data: data,
     pointRadius: 3,
     pointHoverRadius: 6,
-    hidden: name === 'sum' ? false : true
+    hidden: hidden
   }
 }
 
+const getStuffForChart = (stats) => {
+  let labels = []
+  let players = []
+  let players_sum = []
+  const example = setExampleData(stats)
+  makeValid(stats, example)
+  for(let i = 0; i<example.length; i++) {
+    players.push([])
+  }
 
-let labels = []
-let players = []
-let players_sum = []
-const example = setExampleData(stats)
-makeValid(stats, example)
-for(let i = 0; i<example.length; i++) {
-  players.push([])
-}
-
-stats.forEach((value, index) => {
-  let date = new Date(value.date);
-  if (date.getHours() === 23)
-    labels.push(`${date.getDate()}.${date.getMonth() < 9 ? '0'+(date.getMonth()+1): date.getMonth()+1} ${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`);
-  else
-    labels.push(`${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`)
-  let sum = 0;
-  value.servers.forEach((server, index) => {
-    sum += isNaN(server.players) ? 0 : server.players;
-    players[index].push(server.players)
-  })
-  players_sum.push(sum)
-});
-
-
-
-let datasets = []
-example.forEach((name, index)=> {
-  datasets.push(datasetsGenerator(name, players[index], index >= colors.length ? randomColor() : colors[index]))
-})
-datasets.push(datasetsGenerator('sum', players_sum, "rgba(236, 71, 233, 1)"))
-
-
-const data = {
-    labels: labels,
-    datasets: datasets
-};
-  
-const options = {
-    maintainAspectRatio: false,
-    stacked: false,
-    responsive: true,
-    hover: {
-        mode: 'index',
-        intersect: false
-    },
-    tooltips: {
-      mode: 'index',
-      intersect: false
-    },
-    scales: {
-      yAxes: [{
-        stacked: false,
-        gridLines: {
-          display: true,
-          color: "rgba(255,255,255,0.7)",
-          drawBorder: true,
-          drawOnChartArea: false,
-        },
-        ticks: {
-          fontColor: "#FFF"
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          display: true,
-          drawBorder: true,
-          color: "rgba(255,255,255,0.7)",
-          drawOnChartArea: false
-        },
-        ticks: {
-          fontColor: "#FFF"
-        }
-      }]
-    }
-};
-  
-  Chart.Line('chart', {
-    options: options,
-    data: data
+  stats.forEach((value, index) => {
+    let date = new Date(value.date);
+    if (date.getHours() === 23)
+      labels.push(`${date.getDate()}.${date.getMonth() < 9 ? '0'+(date.getMonth()+1): date.getMonth()+1} ${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`);
+    else
+      labels.push(`${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`)
+    let sum = 0;
+    value.servers.forEach((server, index) => {
+      sum += isNaN(server.players) ? 0 : server.players;
+      players[index].push(server.players)
+    })
+    players_sum.push(sum)
   });
 
 
-const select = document.querySelector('select')
-select.addEventListener('change', () => {
-  window.location.href = window.location.origin + "/" + select.value.toLowerCase();
-})
+
+  let datasets = []
+  example.forEach((name, index)=> {
+    datasets.push(datasetsGenerator(name, players[index], index >= colors.length ? randomColor() : colors[index], true))
+  })
+  datasets.push(datasetsGenerator('sum', players_sum, "rgba(236, 71, 233, 1)", false))
+
+  const data = {
+    labels: labels,
+    datasets: datasets
+  };
+
+  return data
+}
+
+const selectListener = () => {
+  const select = document.querySelector('select')
+  select.addEventListener('change', () => {
+    window.location.href = window.location.origin + "/" + select.value.toLowerCase();
+  })
+}
+

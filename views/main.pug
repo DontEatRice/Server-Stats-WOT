@@ -9,6 +9,7 @@ mixin option(name)
 
 block links 
     link(rel="stylesheet" href="./stylesheets/style.css")
+    link(rel="stylesheet" href="./stylesheets/main.css")
     script(src="./javascripts/Chart.bundle.min.js")
 
 block content
@@ -23,6 +24,7 @@ block content
         div.block 
             div(class="chart-container")
                 canvas#chart
+                    p Loading chart...
             div.options
                 span Choose different server 
                 span 
@@ -31,12 +33,22 @@ block content
                         +option('RU')
                         +option('NA')
                         +option('ASIA')
+                span.modeRedirects Click here to see average number of players in last [#[a(href='/week') week]] or [#[a(href='/month') month]]!
         footer 
             span.links 
                 a(href="") About me 
                 a(href="") Github
 
+    script(src="./javascripts/main.js")
     script.
         let stats = !{JSON.stringify(data)}
-    script(src="./javascripts/main.js")
+        stats.reverse();
+        const stuff = getStuffForChart(stats);
+        Chart.Line('chart', {
+            options: options(),
+            data: stuff
+        });
+        selectListener()
+
+    
     
