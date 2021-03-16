@@ -89,7 +89,7 @@ footer {
 }
 
 @media (max-width: 500px) {
-  #container {
+  div#container {
     display: none;
   }
   .mobile_warning {
