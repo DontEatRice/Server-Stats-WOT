@@ -3,7 +3,7 @@ var router = express.Router();
 const Stats = require('../models/stats')
 
 const getData = (res, db, loc, mode) => {
-  const findStats = db.find().sort({date: -1}).limit(25).select("servers date")//{date: {"$lte": drugi.toISOString()}}
+  const findStats = db.find().sort({date: -1}).limit(48).select("servers date")//{date: {"$lte": drugi.toISOString()}}
   findStats.exec((err, data) => {
     if (err)
       res.render('error', {message: err});
