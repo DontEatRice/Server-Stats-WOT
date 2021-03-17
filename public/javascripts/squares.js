@@ -10,7 +10,7 @@ const drawCharts = (stats, options) => {
         const date = new Date(element.date)
         const month = date.getMonth()
         const day = date.getDate()
-        labels.push(`${month < 9 ? '0' + (month+1) : month+1}.${day < 10 ? '0' + day : day}`)
+        labels.push(`${day < 10 ? '0' + day : day}.${month < 9 ? '0' + (month+1) : month+1}`)
         element.servers.forEach(server => {
             switch(server.name.toLowerCase()) {
                 case 'eu':
@@ -72,9 +72,13 @@ const generateSelect = (mode) => {
     let divOptions = document.createElement('div')
     divOptions.classList.add('options')
     const spanChoose = document.createElement('span')
-    spanChoose.textContent = 'Go to last 24hs server stats -> '
+    spanChoose.textContent = 'Go to last 48hs server stats -> '
     divOptions.appendChild(spanChoose);
-    const select = document.createElement('select')
+    const select = document.createElement('select');
+    const defOption = document.createElement('option');
+    defOption.value = '';
+    defOption.textContent = 'Here';
+    select.appendChild(defOption);
     const names = ['EU', 'RU', 'NA', 'ASIA'];
     names.forEach(element => {
         const option = document.createElement('option')
@@ -84,7 +88,7 @@ const generateSelect = (mode) => {
     })
     divOptions.appendChild(select)
     const span = document.createElement('span');
-    span.textContent = `Or check the last ${mode == 7 ? '31' : '7'} days stats `;
+    span.textContent = ` Or check the last ${mode == 7 ? '31' : '7'} days stats `;
     const link = document.createElement('a')
     link.href = mode == 7 ? '/month' : '/week';
     link.textContent = 'here'
