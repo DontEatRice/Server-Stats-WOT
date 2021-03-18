@@ -44,5 +44,14 @@ router.get('/week', (req, res) => {
   })
 })
 
+router.get('/month', (req, res) => {
+  const findStats = Stats.DAY.find().sort({date: -1}).limit(31).select("servers date")//{date: {"$lte": drugi.toISOString()}}
+  findStats.exec((err, data) => {
+    if (err)
+      res.render('error', {message: err});
+    else 
+      res.render('squares', { data: data, mode: 31});
+  })
+})
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const colors = ["rgba(255,99,132,1)", "rgba(103, 181, 190, 1)"]
 
-const options = () => {
+const options = (dates, mode = 'hours') => {
+  console.log(dates);
   return {
     maintainAspectRatio: false,
     stacked: false,
@@ -11,7 +12,22 @@ const options = () => {
     },
     tooltips: {
       mode: 'index',
-      intersect: false
+      intersect: false,
+      callbacks: {
+        title: (tooltipItems) => {
+          let s = new Date(dates[tooltipItems[0].index]);
+          s.setMinutes(0, 0, 0);
+          if (mode === 'hours') {   
+            s = s.toLocaleString();
+            return s;
+          } else if (mode === 'days') {
+            s = s.toDateString();
+            return s;
+          }
+          s = s.toTimeString();
+          return s;
+        }
+      }
     },
     scales: {
       yAxes: [{
@@ -76,7 +92,6 @@ const randomColor = () => {
   const r = randomInt(256)
   const g = randomInt(256)
   const b = randomInt(256)
-
   return `rgba(${r}, ${g}, ${b}, 1)`
 }
 
@@ -100,6 +115,7 @@ const getStuffForChart = (stats) => {
   let labels = []
   let players = []
   let players_sum = []
+  let dates = []
   const example = setExampleData(stats)
   makeValid(stats, example)
   for(let i = 0; i<example.length; i++) {
@@ -108,6 +124,7 @@ const getStuffForChart = (stats) => {
 
   stats.forEach((value, index) => {
     let date = new Date(value.date);
+    dates.push(date);
     if (date.getHours() === 23)
       labels.push(`${date.getDate()}.${date.getMonth() < 9 ? '0'+(date.getMonth()+1): date.getMonth()+1} ${date.getHours() < 10 ? '0'+date.getHours(): date.getHours()}`);
     else
@@ -133,7 +150,7 @@ const getStuffForChart = (stats) => {
     datasets: datasets
   };
 
-  return data
+  return [data, dates]
 }
 
 const selectListener = () => {

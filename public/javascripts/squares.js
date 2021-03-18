@@ -1,3 +1,5 @@
+const colorPicker = ['rgba(230, 230, 0, 1)', 'rgb(102, 153, 255, 1)', 'rgb(153, 255, 102, 1)', 'rgb(255, 153, 51, 1)'];
+
 const drawCharts = (stats, options) => {
     stats.reverse();
     document.querySelector('#container');
@@ -6,8 +8,10 @@ const drawCharts = (stats, options) => {
     const ru = []
     const na = []
     const asia = []
+    const dates = [];
     stats.forEach(element => {
         const date = new Date(element.date)
+        dates.push(element.date);
         const month = date.getMonth()
         const day = date.getDate()
         labels.push(`${day < 10 ? '0' + day : day}.${month < 9 ? '0' + (month+1) : month+1}`)
@@ -62,9 +66,9 @@ const drawCharts = (stats, options) => {
         }
         const data = {
             labels: labels,
-            datasets: [datasetsGenerator(name, players, randomColor(), false)]
+            datasets: [datasetsGenerator(name, players, colorPicker.pop(), false)]
         }
-        new Chart(ctx, {type: 'line', data: data, options: options})
+        new Chart(ctx, {type: 'line', data: data, options: options(dates, 'days')})
     }
 }
 

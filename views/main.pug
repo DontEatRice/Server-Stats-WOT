@@ -43,9 +43,9 @@ block content
     script.
         let stats = !{JSON.stringify(data)}
         stats.reverse();
-        const stuff = getStuffForChart(stats);
+        const [stuff, dates] = getStuffForChart(stats);
         Chart.Line('chart', {
-            options: options(),
+            options: options(dates),
             data: stuff
         });
         selectListener()
