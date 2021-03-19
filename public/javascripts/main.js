@@ -1,7 +1,6 @@
 const colors = ["rgba(255,99,132,1)", "rgba(103, 181, 190, 1)"]
 
 const options = (dates, mode = 'hours') => {
-  console.log(dates);
   return {
     maintainAspectRatio: false,
     stacked: false,
