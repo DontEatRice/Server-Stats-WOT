@@ -1,14 +1,14 @@
-var express = require('express');
-var router = express.Router();
-const Stats = require('../models/stats')
+const express = require('express');
+const router = express.Router();
+const Stats = require('../models/stats');
 
-const getData = (res, db, loc, mode) => {
+const getData = (res, db, loc) => {
   const findStats = db.find().sort({date: -1}).limit(48).select("servers date")//{date: {"$lte": drugi.toISOString()}}
   findStats.exec((err, data) => {
     if (err)
       res.render('error', {message: err});
     else 
-      res.render('main', { data: data, loc: loc, mode: mode});
+      res.render('main', { data: data, loc: loc});
   })
 }
 

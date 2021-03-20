@@ -3,9 +3,6 @@ extends layout
 block links
     link(rel="stylesheet" href="./stylesheets/style.css")
     link(rel="stylesheet", href="./stylesheets/squares.css")
-    
-    
-    script(src="./javascripts/Chart.bundle.min.js")
 
 block content
     div.mobile_warning
@@ -22,11 +19,9 @@ block content
                 a(href="") About me 
                 a(href="") Github
     script(src="./javascripts/main.js")
-    script(src="./javascripts/squares.js")     
     script.
         let stats = !{JSON.stringify(data)}
         const mode = !{mode}
-        drawCharts(stats, options)
-        generateSelect(mode)
+    script(src="./javascripts/squares/squares.js")
     
     

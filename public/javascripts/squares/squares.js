@@ -101,3 +101,8 @@ const generateSelect = (mode) => {
     document.querySelector('#container').appendChild(divOptions);
     selectListener();
 }
+
+window.onload = () => {
+    drawCharts(stats, options)
+    generateSelect(mode)
+}

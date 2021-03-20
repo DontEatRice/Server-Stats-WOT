@@ -40,15 +40,10 @@ block content
                 a(href="") Github
 
     script(src="./javascripts/main.js")
+    
     script.
         let stats = !{JSON.stringify(data)}
-        stats.reverse();
-        const [stuff, dates] = getStuffForChart(stats);
-        Chart.Line('chart', {
-            options: options(dates),
-            data: stuff
-        });
-        selectListener()
-
+        
+    script(src="./javascripts/hours/hours.js")
     
     

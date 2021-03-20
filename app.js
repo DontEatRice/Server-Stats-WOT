@@ -11,6 +11,7 @@ dotenv.config();
 
 const indexRouter = require('./routes/index');
 const errorRouter = require('./routes/error')
+const apiRouter = require('./routes/api')
 
 mongoose.connect(process.env.DB_LINK, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/error', errorRouter);
+app.use('/api', apiRouter);
 
 app.use((req, res) => {
     res.status(404);
