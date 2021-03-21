@@ -81,16 +81,28 @@ const getStuffForChart = (stats) => {
 }
 
 
-stats.reverse();
 
-window.onload = () => {
-    stats.reverse();
-    const [stuff, dates] = getStuffForChart(stats);
-    Chart.Line('chart', {
-        options: options(dates),
-        data: stuff
-    });
-    selectListener()
+window.onload = async () => {
+    const location = window.location.pathname.slice(1);
+    const response = await fetchData('hour', 'server', location);
+    if (!response.ok) {
+      const block = document.querySelector('.block');
+      block.classList.add('error');
+      block.textContent = "Error in getting data from server!";
+    } else {
+      const stats = await response.json();
+      stats.reverse();
+      const [stuff, dates] = getStuffForChart(stats);
+      Chart.Line('chart', {
+          options: options(dates),
+          data: stuff
+      });
+      selectListener()
+    }
+    document.querySelector('.loader').style.left = '100%';
+    setTimeout(() => {
+      document.querySelector('.loader').style.display = 'none';
+    }, 600);
 }
   
   

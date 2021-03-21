@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Stats = require('../models/stats');
 
-const getData = (res, db, loc) => {
-  const findStats = db.find().sort({date: -1}).limit(48).select("servers date")//{date: {"$lte": drugi.toISOString()}}
-  findStats.exec((err, data) => {
-    if (err)
-      res.render('error', {message: err});
-    else 
-      res.render('main', { data: data, loc: loc});
-  })
-}
+// const getData = (res, db, loc) => {
+//   const findStats = db.find().sort({date: -1}).limit(48).select("servers date")//{date: {"$lte": drugi.toISOString()}}
+//   findStats.exec((err, data) => {
+//     if (err)
+//       res.render('error', {message: err});
+//     else 
+//       res.render('main', { data: data, loc: loc});
+//   })
+// }
 
 
 /* GET home page. */
@@ -18,40 +18,36 @@ router.get('/', function(req, res, next) {
   res.redirect('/eu');
 });
 
-router.get('/eu', (req, res) => {
-  getData(res, Stats.EU, 'EU');
+const main = (res, loc) => {
+  res.render('main', {loc: loc});
+}
+
+router.get('/:server', (req, res, next) => {
+  switch (req.params.server.toUpperCase()) {
+    case 'EU':
+        main(res, 'EU');
+        break;
+    case 'NA':
+        main(res, 'NA');
+        break;
+    case 'RU':
+        main(res, 'RU');
+        break;
+    case 'ASIA':
+        main(res, 'ASIA');
+        break;
+    default:
+        next();
+        break;
+  }
 })
 
-router.get('/na', (req, res) => {
-  getData(res, Stats.NA, 'NA');
-});
-
-router.get('/ru', (req, res) => {
-  getData(res, Stats.RU, 'RU');
-});
-
-router.get('/asia', (req, res) => {
-  getData(res, Stats.ASIA, 'ASIA');
-});
-
-router.get('/week', (req, res) => {
-  const findStats = Stats.DAY.find().sort({date: -1}).limit(7).select("servers date")//{date: {"$lte": drugi.toISOString()}}
-  findStats.exec((err, data) => {
-    if (err)
-      res.render('error', {message: err});
-    else 
-      res.render('squares', { data: data, mode: 7});
-  })
+router.get('/:type', (req, res, next) => {
+  const type = req.params.type.toUpperCase();
+  if (type === 'WEEK' || type === 'MONTH') {
+    res.render('squares');
+  } else {
+    next();
+  }
 })
-
-router.get('/month', (req, res) => {
-  const findStats = Stats.DAY.find().sort({date: -1}).limit(31).select("servers date")//{date: {"$lte": drugi.toISOString()}}
-  findStats.exec((err, data) => {
-    if (err)
-      res.render('error', {message: err});
-    else 
-      res.render('squares', { data: data, mode: 31});
-  })
-})
-
 module.exports = router;

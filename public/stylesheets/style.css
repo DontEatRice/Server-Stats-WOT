@@ -89,6 +89,12 @@ span.links {
   transform: translateY(-50%);
 }
 
+.error {
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+}
+
 footer {
   display: none;
   background-color: black;

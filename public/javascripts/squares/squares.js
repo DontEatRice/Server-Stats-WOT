@@ -1,7 +1,6 @@
 const colorPicker = ['rgba(230, 230, 0, 1)', 'rgb(102, 153, 255, 1)', 'rgb(153, 255, 102, 1)', 'rgb(255, 153, 51, 1)'];
 
 const drawCharts = (stats, options) => {
-    stats.reverse();
     document.querySelector('#container');
     const labels = []
     const eu = []
@@ -102,7 +101,22 @@ const generateSelect = (mode) => {
     selectListener();
 }
 
-window.onload = () => {
-    drawCharts(stats, options)
-    generateSelect(mode)
+window.onload = async () => {
+    const limit = window.location.pathname.slice(1) === 'week' ? 7 : 31;
+    const response = await fetchData('day', 'limit', limit);
+    if (!response.ok) {
+        const block = document.querySelector('.block');
+        block.classList.add('error');
+        block.textContent = "Error in getting data from server!";
+    } else {
+        const stats = await response.json();
+        stats.reverse();
+        drawCharts(stats, options)
+        generateSelect(limit)
+    }
+    document.querySelector('.loader').style.left = '100%';
+    setTimeout(() => {
+        document.querySelector('.loader').style.display = 'none';
+    }, 600);
+    
 }

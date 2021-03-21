@@ -76,3 +76,8 @@ const selectListener = () => {
     window.location.href = window.location.origin + "/" + select.value.toLowerCase();
   })
 }
+
+const fetchData = async (type, arg, argValue) => {
+  const response = await fetch(`/api?type=${type}&${arg}=${argValue}`);
+  return response;
+}
