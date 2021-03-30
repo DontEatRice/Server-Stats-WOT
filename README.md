@@ -17,5 +17,5 @@ Client-side [javaScript](https://github.com/DontEatRice/Server-Stats-WOT/tree/ma
     ```
 3. Run script! :heavy_check_mark:
     ```Bash
-    node index
+    node .\bin\www
     ```
