@@ -68,9 +68,9 @@ const getStuffForChart = (stats) => {
   
     let datasets = []
     example.forEach((name, index)=> {
-      datasets.push(datasetsGenerator(name, players[index], index >= colors.length ? randomColor() : colors[index], true))
+      datasets.push(datasetsGenerator({name: name,data: players[index], color: (index >= colors.length ? randomColor() : colors[index]), hidden: true}))
     })
-    datasets.push(datasetsGenerator('sum', players_sum, "rgba(236, 71, 233, 1)", false))
+    datasets.push(datasetsGenerator({name: 'sum', data: players_sum, color: "rgba(236, 71, 233, 1)", hidden: false}))
   
     const data = {
       labels: labels,

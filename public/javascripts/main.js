@@ -54,7 +54,7 @@ const options = (dates, mode = 'hours') => {
   };
 }
 
-const datasetsGenerator = (name, data, color, hidden) => {
+const datasetsGenerator = ({name, data, color, hidden = true, lineTension = 0.4}) => {
   return {
     label: name,
     borderColor: color,
@@ -66,7 +66,8 @@ const datasetsGenerator = (name, data, color, hidden) => {
     data: data,
     pointRadius: 3,
     pointHoverRadius: 6,
-    hidden: hidden
+    hidden: hidden,
+    lineTension: lineTension
   }
 }
 

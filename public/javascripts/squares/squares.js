@@ -65,7 +65,7 @@ const drawCharts = (stats, options) => {
         }
         const data = {
             labels: labels,
-            datasets: [datasetsGenerator(name, players, colorPicker.pop(), false)]
+            datasets: [datasetsGenerator({name: name, data: players, color: colorPicker.pop(), hidden: false, lineTension: 0.1})]
         }
         new Chart(ctx, {type: 'line', data: data, options: options(dates, 'days')})
     }
