@@ -20,7 +20,7 @@ const makeValid = (stats, example) => {
     stats.forEach(stat => {
         if (stat.servers.length !== example.length) {
             for(let i = 0; i < example.length; i++) {
-                if (stat.servers[i].name != example[i]) {
+                if (stat.servers[i] === undefined) {
                 stat.servers.splice(i, 0, {players: NaN, name: example[i]})
                 }
             }
