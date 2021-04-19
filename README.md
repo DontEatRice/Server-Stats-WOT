@@ -1,5 +1,7 @@
 # Server Stats WOT :chart_with_upwards_trend:
 
+This site provides statistics of last 48 hours online players on all available World of Tanks servers. You can also check the average number of online players in last [week](https://server-stats-wot.herokuapp.com/week) or [month](https://server-stats-wot.herokuapp.com/month) 
+
 ## Data harvesting scrpits [here](https://github.com/DontEatRice/wot-server-stats-harvester)
 
 ## How does it work:interrobang: 
