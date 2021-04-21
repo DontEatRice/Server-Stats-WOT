@@ -2,7 +2,7 @@
 
 This site provides statistics of last 48 hours online players on all available World of Tanks servers. You can also check the average number of online players in last [week](https://server-stats-wot.herokuapp.com/week) or [month](https://server-stats-wot.herokuapp.com/month) 
 
-## Data harvesting scrpits [here](https://github.com/DontEatRice/wot-server-stats-harvester)
+## Data harvesting scripts [here](https://github.com/DontEatRice/wot-server-stats-harvester)
 
 ## How does it work:interrobang: 
 Client-side [javaScript](https://github.com/DontEatRice/Server-Stats-WOT/tree/master/public/javascripts) is making GET request to [API](https://github.com/DontEatRice/Server-Stats-WOT/blob/master/routes/api.js) for data and then it generates the [Chart.js](https://www.chartjs.org/) charts
