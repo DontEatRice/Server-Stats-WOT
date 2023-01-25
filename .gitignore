@@ -2,3 +2,5 @@
 /node_modules
 /harvester
 .gitignore
+.replit
+replit.nix
